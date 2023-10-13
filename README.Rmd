@@ -14,7 +14,7 @@ knitr::opts_chunk$set(collapse  = TRUE,
 
 
 
-# cloudDemo
+# compendiumDemo
 
 
 <!-- badges: start -->
@@ -23,15 +23,11 @@ knitr::opts_chunk$set(collapse  = TRUE,
 <!-- badges: end -->
 
 
-Research Compendium to demonstrate how to run an analysis in the cloud.
-
-
+Research Compendium to demonstrate best practices for reproducible research.
 
 ### Steps to create
 
 This compendium was setup by creating a new GitHub repo on GitHub, cloning it by starting a new project from version control in RStudio, and running `rcompendium::new_compendium(create_repo = FALSE, renv = TRUE)`
-
-
 
 ### Content
 
