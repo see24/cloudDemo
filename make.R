@@ -12,7 +12,7 @@
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
-renv::restore()
+# renv::restore()
 
 
 ## Load Project Addins (R Functions and Packages) ----
@@ -31,3 +31,4 @@ theme_set(theme_classic())
 
 # List all R scripts in a sequential order and using the following form:
 source(here::here("analyses", "01_run_model.R"))
+source(here::here("analyses", "02_make_fig.R"))

@@ -13,5 +13,6 @@ do_mod(x)
 data.frame with the variable name and r.squared value
 }
 \description{
-Run a linear model of the variable vs mpg for the mtcars data set
+Run a linear model of the variable vs mpg for the mtcars data
+set and extract the r squared.
 }
