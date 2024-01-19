@@ -46,7 +46,7 @@ rcompendium::new_compendium(create_repo = TRUE, renv = TRUE)
 
 This adds many files and folders to your project based on a standard folder structure. You will need to edit the README.Rmd to describe the project and explain what you will use each folder for. Recommended descriptions of the default folders are:
 
-  - ⁠data⁠: a folder to store raw and derived data. Note that these data must never be modified. If user want to modify them it is recommended to export new data in ⁠outputs⁠.
+  - ⁠data⁠: a folder to store raw and derived data. Note that these data must never be modified. If users want to modify them it is recommended to export new data in ⁠outputs⁠.
   
   - ⁠analyses⁠: a folder to write analyses instructions, i.e. R scripts. If user need to create R functions it is recommended to write them in the ⁠R folder.
  
@@ -125,7 +125,7 @@ ggplot(r2_tab, aes(variable, r.squared))+
 ggsave("figures/r2_mpg_variables.png")
 ```
 
-Once the scripts are ready I add the following to the "make.R" file that will source each script and also set a global ggplot2 theme. 
+Once the scripts are ready I add the following to the bottom of the "make.R" file that was created with default values when we created the compendium. This will source each script and also set a global ggplot2 theme. 
 
 ```{r}
 ## Global Variables ----
@@ -142,15 +142,15 @@ source(here::here("analyses", "01_run_model.R"))
 source(here::here("analyses", "02_make_fig.R"))
 ```
 
-The make.R file also runs `renv::restore()` which will install the versions of the R packages recorded in the lockfile. To ensure that all dependencies have been recorded run `rcompendium::add_dependencies(".")`.
+The make.R file also runs `renv::restore()` which will install the versions of the R packages recorded in the lockfile. To update the versions in the lockfile run `renv::snapshot()`. To ensure that all dependencies have been recorded in the DESCRIPTION run `rcompendium::add_dependencies(".")`.
 
-Finally, restart R and then run `source("make.R")`. This will ensure that your scripts works from a fresh R session. If everything works as expected update the renv lockfile by running `renv::snapshot()` to ensure you capture the state when it is working. Then commit and push all your changes to GitHub. Now a collaborator should be able to clone your repo from GitHub and run `source("make.R")` to reproduce your analysis. 
+Finally, restart R and then run `source("make.R")`. This will ensure that your scripts work from a fresh R session. Then commit and push all your changes to GitHub. Now a collaborator should be able to clone your repo from GitHub and run `source("make.R")` to reproduce your analysis. 
 
 ## Managing data
 
 Above we used a built in data set but typically you will have some data that you want to store in the data folder. If the data is less than 100 Mb and is recorded in a text or csv file it can be tracked in GitHub and can be included in the repo. Otherwise you will want to store the data somewhere other than GitHub. 
 
-To stop git from tracking things stored in the data folder you can add "data/" to a new line in the .gitignore file in the project directory. This means that the data folder will not be tracked by git and will not be uploaded to the repo on GitHub so you will need to have an alternative mechanism for collaborators to access the data. The simplest option is to add a note in the project README that explains where to manually download the data or who to contact to get the data. To have a more automated solution you will need to store the data somewhere online. Two options with R packages are Google Drive ([googledrive](https://googledrive.tidyverse.org/)) and OSF ([osfr](https://docs.ropensci.org/osfr/)). To use googledrive for example you would need to have the data available in a Google Drive folder that is shared with the user. Then you can include something like the below as the first step in your data analysis. 
+To stop git from tracking things stored in the data folder you can add "data/" to a new line in the .gitignore file in the project directory (`usethis::edit_git_ignore("project")` will open the file for you). This means that the data folder will not be tracked by git and will not be uploaded to the repo on GitHub so you will need to have an alternative mechanism for collaborators to access the data. The simplest option is to add a note in the project README that explains where to manually download the data or who to contact to get the data. To have a more automated solution you will need to store the data somewhere online. Two options with R packages are Google Drive ([googledrive](https://googledrive.tidyverse.org/)) and OSF ([osfr](https://docs.ropensci.org/osfr/)). To use googledrive for example you would need to have the data available in a Google Drive folder that is shared with the user. Then you can include something like the below as the first step in your data analysis. 
 
 ```{r}
 # get raw lit review data from google drive
@@ -160,7 +160,6 @@ gd_url <- "https://docs.google.com/spreadsheets/d/16X9oxbmufCTy8WpV2zSj9KoVmImkX
 fl_pth <- here::here("data/raw-data", "data_from_GD.xlsx")
 
 # running this will prompt you for permission to connect to your google drive
-# another option is to download manually and store in the same path
 googledrive::drive_auth(email = TRUE)
 
 googledrive::drive_download(
@@ -170,5 +169,13 @@ googledrive::drive_download(
 
 raw_lr_dat <- readxl::read_xlsx(fl_pth)
 ```
+
+OSF (Open Science Framework) is better than Google drive if you want a more polished place to store data that you will publish. Creating an OSF project creates a private or public website that can be used with collaborators or the public. For an example see the OSF page for the [CAN-SAR Database](https://osf.io/e4a58/). You can archive an OSF project with a doi to reference a specific version in a paper (called a "registration"). 
+## Writing a paper
+You can use Rmarkdown or Quarto to author papers. The main benefit is the ability to include figures, tables and in text code in the paper so that you never need to update numbers or copy paste figures in a paper after revising the analysis. It also automatically formats citations based of a csl file so you can change citation formats quickly by just changing files. 
+
+
+
+
 
 

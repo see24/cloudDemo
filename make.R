@@ -12,7 +12,7 @@
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
-# renv::restore()
+renv::restore()
 
 
 ## Load Project Addins (R Functions and Packages) ----
