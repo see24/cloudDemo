@@ -19,14 +19,17 @@ Imports:
     broom,
     devtools,
     dplyr,
+    ggplot2,
     here,
     purrr,
     renv
 VignetteBuilder: knitr
 Suggests: 
     gh,
+    googledrive,
     knitr,
     package,
     rcompendium,
+    readxl,
     rmarkdown,
     usethis

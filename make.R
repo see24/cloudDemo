@@ -1,4 +1,4 @@
-#' cloudDemo: A Research Compendium
+#' compendiumDemo: A Research Compendium
 #' 
 #' @description 
 #' A paragraph providing a full description of the project and describing each 
@@ -12,7 +12,7 @@
 
 ## Install Dependencies (listed in DESCRIPTION) ----
 
-renv::restore()
+devtools::install_deps(upgrade = "never")
 
 
 ## Load Project Addins (R Functions and Packages) ----
